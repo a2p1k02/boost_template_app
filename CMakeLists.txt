@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(boost_template_app)
+project(boost_template_app) # <-- change this for your name
+
+set(BOOST_ROOT external/boost)
 
 # Uncomment component that you want to use
 set(BOOST_COMPONENTS
@@ -47,9 +49,10 @@ foreach(component IN LISTS BOOST_COMPONENTS)
     endif()
 endforeach()
 
-add_executable(boost_template_app src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp)
 
+target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIR})
 foreach(component IN LISTS FOUND_BOOST_COMPONENTS)
-    target_link_libraries(boost_template_app PRIVATE Boost::${component})
+    target_link_libraries(${PROJECT_NAME} PRIVATE Boost::${component})
 endforeach()
 
